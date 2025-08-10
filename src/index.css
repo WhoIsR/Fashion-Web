@@ -20,17 +20,18 @@
   }
 }
 
+/* Ganti @layer components yang lama dengan ini */
 @layer components {
   .btn-primary {
-    @apply bg-black text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-[1.02] active:scale-[0.98];
+    @apply bg-brand-purple-dark text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:bg-opacity-90 hover:scale-[1.02] active:scale-[0.98];
   }
   
   .btn-secondary {
-    @apply border border-black text-black px-8 py-3 rounded-full font-medium transition-all duration-300 hover:bg-black hover:text-white hover:scale-[1.02] active:scale-[0.98];
+    @apply border border-brand-purple-dark text-brand-purple-dark px-8 py-3 rounded-full font-medium transition-all duration-300 hover:bg-brand-purple-dark hover:text-white hover:scale-[1.02] active:scale-[0.98];
   }
   
   .btn-accent {
-    @apply bg-amber-600 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:bg-amber-700 hover:scale-[1.02] active:scale-[0.98];
+    @apply bg-brand-pink text-brand-purple-dark px-8 py-3 rounded-full font-medium transition-all duration-300 hover:bg-opacity-90 hover:scale-[1.02] active:scale-[0.98];
   }
   
   .card-hover {
@@ -38,7 +39,7 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand-pink to-brand-purple-dark bg-clip-text text-transparent;
   }
 }
 
@@ -131,3 +132,35 @@ html {
   color: #6A4068; /* Warna Ungu Tua */
 }
 
+/* ===== CSS BARU UNTUK MASONRY GRID & UPDATE LAINNYA ===== */
+
+/* Grid Masonry (Style Inspiration) */
+.masonry-container {
+  /* Untuk Desktop Besar: 4 kolom */
+  column-count: 4;
+  column-gap: 1.5rem; /* Jarak antar kolom */
+}
+
+.masonry-item {
+  /* Mencegah item terpotong dan pindah ke kolom lain */
+  break-inside: avoid;
+  margin-bottom: 1.5rem; /* Jarak vertikal antar item */
+  width: 100%;
+}
+
+/* Penyesuaian untuk layar lebih kecil (Responsive) */
+@media (max-width: 1024px) {
+  .masonry-container {
+    /* Tablet: 3 kolom */
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonry-container {
+    /* Mobile: 2 kolom */
+    column-count: 2;
+    column-gap: 1rem;
+    margin-bottom: 1rem;
+  }
+}

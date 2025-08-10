@@ -38,6 +38,9 @@ export default {
           900: '#78350f',
         }
       },
+      backgroundSize: {
+        '400%': '400% 400%',
+      }, 
       animation: {
         'fade-in-up': 'fadeInUp 0.6s ease-out',
         'fade-in-down': 'fadeInDown 0.6s ease-out',
@@ -45,6 +48,7 @@ export default {
         'slide-in-right': 'slideInRight 0.6s ease-out',
         'scale-in': 'scaleIn 0.4s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
+        'gradient-flow': 'gradientFlow 15s ease infinite',
       },
       keyframes: {
         fadeInUp: {
@@ -72,6 +76,10 @@ export default {
           '40%': { transform: 'translateY(-10px)' },
           '60%': { transform: 'translateY(-5px)' },
         },
+        gradientFlow: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        }
       },
     },
   },
