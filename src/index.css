@@ -79,3 +79,55 @@ html {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+
+/* ===== CSS UNTUK LOGO ARVE ===== */
+
+/* Container utama logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  /* Sebaiknya gunakan font yang lebih modern seperti sans-serif */
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif; 
+  font-weight: bold;
+  gap: 4px; /* Jarak antar elemen: AR | V/./V | E */
+}
+
+/* Untuk teks 'AR' dan 'E' */
+.logo-text {
+  font-size: 2.25rem; /* Ukuran disesuaikan agar mirip dengan logo lama */
+  line-height: 1;
+  color: #EBA4E6; /* Warna Ungu Muda */
+}
+
+/* Bagian tengah logo (V, titik, V terbalik) */
+.logo-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Huruf V di bagian atas */
+.logo-v-top {
+  font-size: 1.5rem; /* Ukuran V lebih kecil */
+  line-height: 0.8;
+  color: #ECA4BC; /* Warna Pink */
+}
+
+/* Titik di tengah */
+.logo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #cf90a5, #824f7f);
+  margin: 3px 0;
+}
+
+/* Huruf V terbalik di bawah */
+.logo-v-bottom {
+  font-size: 1.5rem;
+  line-height: 0.8;
+  transform: rotate(180deg);
+  color: #6A4068; /* Warna Ungu Tua */
+}
+

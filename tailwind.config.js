@@ -8,6 +8,11 @@ export default {
         'serif': ['Playfair Display', 'serif'],
       },
       colors: {
+      'brand-purple-dark': '#6A4068',
+      'brand-purple-light': '#EBA4E6',
+      'brand-pink': '#ECA4BC',
+      'brand-text': '#2c2c2c',
+      'brand-bg-light': '#FEF9FB',
         primary: {
           50: '#fafafa',
           100: '#f5f5f5',
