@@ -10,15 +10,24 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "ai": "^5.0.10",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.5.2",
+    "react-intersection-observer": "^9.16.0",
+    "react-markdown": "^10.1.0",
+    "react-masonry-css": "^1.0.16",
     "react-router-dom": "^7.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

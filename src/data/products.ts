@@ -43,7 +43,7 @@ export const mockProducts = [
     id: '5',
     name: 'Tailored Blazer',
     price: 395,
-    image: 'https://images.pexels.com/photos/1853270/pexels-photo-1853270.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800',
     category: 'outerwear',
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     colors: ['Black', 'Navy', 'Gray', 'Beige'],

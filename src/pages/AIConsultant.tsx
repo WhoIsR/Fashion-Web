@@ -12,7 +12,7 @@ const AIConsultant = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hello! I'm your AI Fashion Consultant. I'm here to help you discover your perfect style and find amazing outfits. What can I help you with today?",
+      text: "Hi! I'm your AI Fashion Consultant 👗✨. I can help you discover your perfect style, give outfit ideas, and keep you updated with the latest trends. What can I help you with today?",
       sender: 'ai',
       timestamp: new Date()
     }
@@ -20,200 +20,160 @@ const AIConsultant = () => {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-  
+
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length > 1) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
-  
-  const aiResponses = [
-    "I love your style questions! Based on current trends, I'd recommend...",
-    "That's a great choice! Here are some styling tips that would work perfectly...",
-    "For your body type and style preferences, I suggest trying...",
-    "Color coordination is key! Based on what you've told me...",
-    "Seasonal styling is so important. For this time of year, consider...",
-    "Accessorizing can completely transform an outfit. Try adding...",
-    "That combination would look amazing! You could also pair it with...",
-    "Investment pieces are smart choices. I recommend focusing on...",
-  ];
-  
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputText.trim()) return;
-    
-    // Add user message
+    if (!inputText.trim() || isTyping) return;
+
     const userMessage: Message = {
       id: Date.now().toString(),
       text: inputText,
       sender: 'user',
       timestamp: new Date()
     };
-    
-    setMessages(prev => [...prev, userMessage]);
+
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
+    const currentInput = inputText;
     setInputText('');
     setIsTyping(true);
-    
-    // Simulate AI response
-    setTimeout(() => {
-      const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+
+    // ========================================================================
+    // === PERBAIKAN FORMAT HISTORY AGAR SESUAI DENGAN CLOUDFLARE ===
+    // ========================================================================
+    const historyForAPI = newMessages
+      .slice(1, -1) // Ambil semua pesan kecuali sapaan awal dan pesan user yg baru
+      .map(msg => ({
+          // Ubah format agar sesuai dengan yang diharapkan AI Cloudflare
+          role: msg.sender === 'user' ? 'user' : 'assistant', 
+          content: msg.text,
+      }));
+
+    try {
+      const response = await fetch('https://arve-ai-backend.radjasatrio70.workers.dev/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          prompt: currentInput,
+          history: historyForAPI // <-- Kirim riwayat dengan format yang sudah benar
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: randomResponse,
+        text: data.reply,
         sender: 'ai',
         timestamp: new Date()
       };
-      
       setMessages(prev => [...prev, aiMessage]);
+
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "Sorry, I'm having a little trouble connecting right now. Please try again later.",
+        sender: 'ai',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
-  
+
   const suggestionButtons = [
-    "What should I wear to a business meeting?",
-    "Help me create a casual weekend look",
-    "What colors look good with my skin tone?",
-    "How do I style a dress for different occasions?",
-    "What are the must-have pieces for this season?",
-    "Help me find an outfit for a special event"
+    "What should I wear to a wedding?",
+    "Help me find a casual summer outfit",
+    "Which colors suit my skin tone?",
+    "Trendy looks for this month",
   ];
-  
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-pink-50 to-purple-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-4">
-              <Bot size={24} className="text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-serif font-bold text-gray-900">
-                AI Fashion Consultant
-              </h1>
-              <p className="text-gray-600">
-                Your personal styling assistant powered by AI
-              </p>
-            </div>
+      <header className="bg-white/60 backdrop-blur-md border-b border-gray-200 sticky top-0 z-10">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center">
+          <div className="w-12 h-12 bg-gradient-to-r from-brand-pink to-brand-purple-light rounded-full flex items-center justify-center shadow-md">
+            <Bot size={24} className="text-white" />
+          </div>
+          <div className="ml-3">
+            <h1 className="text-lg sm:text-xl font-bold text-gray-900">AI Fashion Consultant</h1>
+            <p className="text-xs sm:text-sm text-gray-500">Your personal style assistant</p>
           </div>
         </div>
-      </div>
-      
-      {/* Chat Container */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden" style={{ height: '70vh' }}>
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6" style={{ height: 'calc(70vh - 80px)' }}>
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}
-              >
-                <div className={`flex max-w-xs lg:max-w-md ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                  {/* Avatar */}
-                  <div className={`flex-shrink-0 ${message.sender === 'user' ? 'ml-3' : 'mr-3'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      message.sender === 'user' 
-                        ? 'bg-gray-700' 
-                        : 'bg-gradient-to-r from-purple-500 to-pink-500'
-                    }`}>
-                      {message.sender === 'user' ? (
-                        <User size={16} className="text-white" />
-                      ) : (
-                        <Bot size={16} className="text-white" />
-                      )}
-                    </div>
-                  </div>
-                  
-                  {/* Message */}
-                  <div className={`rounded-2xl px-4 py-3 ${
-                    message.sender === 'user'
-                      ? 'bg-gray-700 text-white'
-                      : 'bg-gray-100 text-gray-900'
-                  }`}>
-                    <p className="text-sm leading-relaxed">{message.text}</p>
-                  </div>
-                </div>
+      </header>
+
+      {/* Chat Area */}
+      <main className="flex-1 overflow-y-auto px-3 sm:px-4 py-4 max-w-4xl mx-auto w-full space-y-4">
+        {messages.map((msg) => (
+          <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}>
+            <div className={`flex items-end space-x-2 max-w-[85%] sm:max-w-[70%] ${ msg.sender === 'user' ? 'flex-row-reverse space-x-reverse' : '' }`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow flex-shrink-0 ${ msg.sender === 'user' ? 'bg-gray-700' : 'bg-gradient-to-r from-brand-pink to-brand-purple-light' }`}>
+                {msg.sender === 'user' ? ( <User size={16} className="text-white" /> ) : ( <Bot size={16} className="text-white" /> )}
               </div>
-            ))}
-            
-            {/* Typing Indicator */}
-            {isTyping && (
-              <div className="flex justify-start animate-fade-in-up">
-                <div className="flex max-w-xs lg:max-w-md">
-                  <div className="flex-shrink-0 mr-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                      <Bot size={16} className="text-white" />
-                    </div>
-                  </div>
-                  <div className="bg-gray-100 rounded-2xl px-4 py-3">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    </div>
-                  </div>
-                </div>
+              <div className={`px-4 py-2 rounded-2xl text-sm sm:text-base leading-relaxed shadow-sm ${ msg.sender === 'user' ? 'bg-gray-700 text-white' : 'bg-white text-gray-800 border border-gray-100' }`}>
+                {msg.text}
               </div>
-            )}
-            
-            <div ref={messagesEndRef} />
+            </div>
           </div>
-          
-          {/* Input Area */}
-          <div className="border-t border-gray-200 p-6">
-            {/* Suggestion Buttons */}
-            {messages.length === 1 && (
-              <div className="mb-4">
-                <p className="text-sm text-gray-600 mb-3">Try asking me about:</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {suggestionButtons.slice(0, 4).map((suggestion, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setInputText(suggestion)}
-                      className="text-left px-3 py-2 text-sm text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
+        ))}
+
+        {isTyping && (
+          <div className="flex justify-start animate-fade-in-up">
+            <div className="flex items-end space-x-2 max-w-[85%] sm:max-w-[70%]">
+              <div className="w-8 h-8 bg-gradient-to-r from-brand-pink to-brand-purple-light rounded-full flex items-center justify-center shadow">
+                <Bot size={16} className="text-white" />
+              </div>
+              <div className="bg-white border border-gray-100 rounded-2xl px-4 py-2 shadow-sm">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
               </div>
-            )}
-            
-            {/* Input Form */}
-            <form onSubmit={handleSubmit} className="flex space-x-4">
-              <div className="flex-1 relative">
-                <input
-                  type="text"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Ask me anything about fashion and style..."
-                  className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  disabled={isTyping}
-                />
-                <Sparkles size={20} className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              </div>
-              <button
-                type="submit"
-                disabled={!inputText.trim() || isTyping}
-                className={`px-6 py-3 rounded-full font-medium transition-all ${
-                  inputText.trim() && !isTyping
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-                <Send size={18} />
-              </button>
-            </form>
-            
-            <p className="text-xs text-gray-500 mt-3 text-center">
-              This is a demo AI consultant. Responses are simulated for demonstration purposes.
-            </p>
+            </div>
           </div>
+        )}
+        <div ref={messagesEndRef} />
+      </main>
+
+      {/* Input Area */}
+      <footer className="border-t border-gray-200 bg-white/60 backdrop-blur-md sticky bottom-0">
+        <div className="max-w-4xl mx-auto p-3 sm:p-4">
+          {messages.length === 1 && (
+            <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {suggestionButtons.map((s, i) => (
+                <button key={i} onClick={() => setInputText(s)} className="px-3 py-2 text-xs sm:text-sm bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="flex space-x-2 sm:space-x-3">
+            <div className="flex-1 relative">
+              <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} placeholder="Ask me anything about fashion..." className="w-full pl-4 pr-10 py-2 sm:py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-brand-pink focus:border-transparent text-sm sm:text-base" disabled={isTyping} />
+              <Sparkles size={18} className="absolute right-3 top-12 -translate-y-1/2 text-gray-400" />
+            </div>
+            <button type="submit" disabled={!inputText.trim() || isTyping} className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all shadow-sm text-sm sm:text-base ${ inputText.trim() && !isTyping ? 'bg-gradient-to-r from-brand-pink to-brand-purple-light text-white hover:opacity-90' : 'bg-gray-300 text-gray-500 cursor-not-allowed' }`}>
+              <Send size={16} className="sm:w-[18px] sm:h-[18px]" />
+            </button>
+          </form>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };

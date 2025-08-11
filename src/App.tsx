@@ -11,18 +11,35 @@ import ShoppingCart from './pages/ShoppingCart';
 import StyleQuiz from './pages/StyleQuiz';
 import AIConsultant from './pages/AIConsultant';
 
-// Component to handle scroll to top on route change
+// Komponen ini akan membungkus semua halaman dan mengatur layout
+const AppLayout = () => {
+  const location = useLocation();
+  const showFooter = location.pathname !== '/consultant'; // Footer tidak akan muncul jika halaman adalah /consultant
+
+  return (
+    <div className="App">
+      <Toaster position="top-right" />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/catalog" element={<ProductCatalog />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<ShoppingCart />} />
+        <Route path="/quiz" element={<StyleQuiz />} />
+        <Route path="/consultant" element={<AIConsultant />} />
+      </Routes>
+      {/* Footer hanya akan dirender jika showFooter bernilai true */}
+      {showFooter && <Footer />}
+    </div>
+  );
+};
+
+// Komponen ScrollToTop tetap sama
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  
   React.useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [pathname]);
-  
   return null;
 };
 
@@ -30,20 +47,8 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <div className="App">
-          <ScrollToTop />
-          <Toaster position="top-right" />
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalog" element={<ProductCatalog />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<ShoppingCart />} />
-            <Route path="/quiz" element={<StyleQuiz />} />
-            <Route path="/consultant" element={<AIConsultant />} />
-          </Routes>
-          <Footer />
-        </div>
+        <ScrollToTop />
+        <AppLayout />
       </Router>
     </CartProvider>
   );

@@ -84,16 +84,16 @@ const Home = () => {
   const masonryContent = [
     { type: 'quote', id: 'quote-1', text: "Style isn't just what you wear — it's who you are.", author: "Fashion Philosophy" },
     { type: 'product', id: 'product-1', product: mockProducts[0] },
-    { type: 'model', id: 'model-1', image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Street Style Inspiration'},
+    { type: 'model', id: 'model-1', image: 'https://images.pexels.com/photos/1721558/pexels-photo-1721558.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Street Style Inspiration'},
     { type: 'model', id: 'model-2', image: 'https://images.pexels.com/photos/1065084/pexels-photo-1065084.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Elegant Evening Look'},
-    { type: 'quote', id: 'quote-2', text: "Fashion fades, but style is eternal.", author: "Yves Saint Laurent"},
     { type: 'product', id: 'product-3', product: mockProducts[2] },
-    { type: 'model', id: 'model-3', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Casual Chic'},
-    { type: 'product', id: 'product-4', product: mockProducts[3] },
-    { type: 'quote', id: 'quote-3', text: "Dress like you're already famous.", author: "Fashion Mantra"},
-    { type: 'model', id: 'model-4', image: 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Business Elegance'},
-    { type: 'product', id: 'product-2', product: mockProducts[1] },
+    { type: 'quote', id: 'quote-2', text: "Fashion fades, but style is eternal.", author: "Yves Saint Laurent"},
     { type: 'product', id: 'product-5', product: mockProducts[4] },
+    { type: 'model', id: 'model-3', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Casual Chic'},
+    { type: 'product', id: 'product-4', product: mockProducts[5] },
+    { type: 'model', id: 'model-4', image: 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Business Elegance'},
+    { type: 'quote', id: 'quote-3', text: "Dress like you're already famous.", author: "Fashion Mantra"},
+    { type: 'product', id: 'product-2', product: mockProducts[1] },
   ];
   
   return (

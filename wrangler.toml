@@ -1,0 +1,15 @@
+# wrangler.toml (Versi Final yang Benar)
+
+# Nama worker-mu di Cloudflare (sesuaikan jika beda)
+name = "arve-ai-backend" 
+
+# File utama yang akan di-upload
+main = "api/chat.js"
+
+# Tanggal kompatibilitas
+compatibility_date = "2024-05-02"
+
+# === BAGIAN PALING PENTING ADA DI SINI ===
+# Perintah yang memberitahu Cloudflare untuk menghubungkan kodemu ke layanan AI
+[ai]
+binding = "AI"
