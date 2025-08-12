@@ -1,4 +1,4 @@
-// File: api/chat.js (Versi Final dengan Streaming Aktif)
+// File: api/chat.js (Versi Final dengan Konteks Produk)
 
 export default {
   async fetch(request, env) {
@@ -12,14 +12,31 @@ export default {
     }
 
     try {
-      const { history = [], prompt } = await request.json();
+      // SEKARANG KITA MENERIMA 'products' DARI FRONTEND
+      const { history = [], prompt, products = [] } = await request.json();
 
       if (!prompt) {
          return new Response(JSON.stringify({ error: "Prompt is required." }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
       }
 
+      // Kita buat daftar produk menjadi string yang mudah dibaca AI
+      const productCatalogString = products.map(p => `- ${p.name} (ID: ${p.id}, Category: ${p.category}, Price: $${p.price})`).join('\n');
+
       const messages = [
-        { role: 'system', content: `You are "Arve", a world-class AI Fashion Consultant. Your personality is chic, friendly, and helpful. **Core Instruction: Always answer using Indonesian and don't use English unless asked to..** RULES: 1. Always stay in character. 2. Keep responses concise and use emojis (✨,👗,👠,🌸). 3. Give concrete examples. 4. **Use Markdown formatting (like **bold**, *italics*, and lists with '-' or '*') to make your responses easy to read.**` },
+        { 
+          role: 'system', 
+          // --- INSTRUKSI UNTUK AI KITA UPGRADE ---
+          content: `You are "Arve", a helpful and chic AI Fashion Consultant. **Core Instruction: Always answer in Indonesian.**
+          RULES:
+          1. Your main goal is to help users by recommending products FROM THE CATALOG PROVIDED BELOW.
+          2. When you recommend a product, you MUST format it as a Markdown link like this: '[Nama Produk](/product/ID_PRODUK)'. Replace 'arve.style' with the actual domain when deployed.
+          3. Be friendly, use emojis (✨,👗,👠), and give clear reasons for your recommendations.
+          4. If the user's question is not about products, answer it normally.
+          
+          --- AVAILABLE PRODUCT CATALOG ---
+          ${productCatalogString}
+          ---------------------------------`
+        },
         ...history,
         { role: 'user', content: prompt }
       ];
@@ -28,7 +45,7 @@ export default {
         '@cf/meta/llama-3-8b-instruct',
         { 
           messages,
-          stream: true // <-- PASTIKAN INI ADA DAN BERNILAI TRUE
+          stream: true
         }
       );
 

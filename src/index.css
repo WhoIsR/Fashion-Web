@@ -164,3 +164,43 @@ html {
     margin-bottom: 1rem;
   }
 }
+
+/* ===== CSS BARU UNTUK HERO BACKGROUND ===== */
+@layer utilities {
+  .hero-bg-animated {
+    @apply bg-gradient-to-br from-brand-purple-dark via-brand-text to-brand-purple-dark bg-200% animate-subtle-gradient;
+  }
+}
+
+/* Ensure proper navbar layering */
+#root {
+  position: relative;
+}
+
+/* Add space for fixed navbar */
+.main-content {
+  padding-top: 64px; /* Matches navbar height */
+}
+
+/* Mobile menu animation */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeDown {
+  animation: fadeDown 0.2s ease-out forwards;
+}
+
+/* Improve touch interactions */
+@media (max-width: 768px) {
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+}

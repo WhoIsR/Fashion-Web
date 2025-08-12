@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Heart, Truck, RefreshCw, Shield, Plus, Minus } from 'lucide-react';
+import { Heart, Truck, RefreshCw, Shield, Plus, Minus, ArrowLeft } from 'lucide-react';
 import { mockProducts } from '../data/products';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
@@ -70,16 +70,34 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-white py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
-        <nav className="mb-8">
-          <div className="flex items-center space-x-2 text-sm text-gray-500">
-            <Link to="/" className="hover:text-black transition-colors">Home</Link>
-            <span>/</span>
-            <Link to="/catalog" className="hover:text-black transition-colors">Shop</Link>
-            <span>/</span>
-            <span className="text-black">{product.name}</span>
+        {/* Back Button and Breadcrumb */}
+        <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pt-10">
+          {/* Left side - Back button (mobile only) and Breadcrumb */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
+            <button 
+              onClick={() => window.history.back()} 
+              className="sm:hidden inline-flex items-center text-gray-600 hover:text-black transition-colors group"
+            >
+              <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+              <span className="font-medium">Back to Shop</span>
+            </button>
+
+            <nav className="flex-1">
+              <div className="flex items-center space-x-2 text-sm text-gray-500">
+                <Link to="/" className="hover:text-black transition-colors">Home</Link>
+                <span className="text-gray-400">/</span>
+                <Link to="/catalog" className="hover:text-black transition-colors">Shop</Link>
+                <span className="text-gray-400">/</span>
+                <span className="text-black truncate max-w-[200px]">{product.name}</span>
+              </div>
+            </nav>
           </div>
-        </nav>
+
+          {/* Right side - can be used for additional actions if needed */}
+          <div className="hidden sm:block">
+            {/* Optional content */}
+          </div>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Image Gallery */}

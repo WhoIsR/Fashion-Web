@@ -1,46 +1,73 @@
 // src/components/AnimatedText.tsx
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
-interface WordProps {
-  children: React.ReactNode;
-  range: [number, number];
-  progress: any; // motion value
-}
+// Varian animasi untuk container
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.5 * i },
+  }),
+};
 
-const Word: React.FC<WordProps> = ({ children, range, progress }) => {
-  const opacity = useTransform(progress, range, [0.2, 1]);
-  return (
-    <span className="relative inline-block mr-3 mt-3">
-      <span className="absolute opacity-20">{children}</span>
-      <motion.span style={{ opacity }}>{children}</motion.span>
-    </span>
-  );
+// Varian animasi untuk setiap huruf
+const childVariants = {
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      damping: 12,
+      stiffness: 100,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    y: 20,
+    transition: {
+      type: 'spring',
+      damping: 12,
+      stiffness: 100,
+    },
+  },
 };
 
 interface AnimatedTextProps {
   text: string;
   className?: string;
+  delays?: number[]; // Opsional: delay berbeda untuk setiap baris
 }
 
-const AnimatedText: React.FC<AnimatedTextProps> = ({ text, className }) => {
-  const element = useRef<HTMLParagraphElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: element,
-    offset: ["start 0.8", "start 0.15"],
-  });
-
-  const words = text.split(" ");
+const AnimatedText: React.FC<AnimatedTextProps> = ({ text, className, delays = [] }) => {
+  const lines = text.split('\n');
 
   return (
-    <p ref={element} className={`flex flex-wrap ${className}`} style={{ lineHeight: '1.2' }}>
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = start + (1 / words.length);
-        return <Word key={i} range={[start, end]} progress={scrollYProgress}>{word}</Word>
-      })}
-    </p>
+    <div className={className}>
+      {lines.map((line, lineIndex) => (
+        <motion.h1
+          key={lineIndex}
+          className="overflow-hidden flex justify-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          custom={delays[lineIndex] || 1} // Gunakan delay custom atau default
+        >
+          {line.split(' ').map((word, wordIndex) => (
+            <div key={wordIndex} className="flex">
+              {word.split('').map((char, charIndex) => (
+                <motion.span key={charIndex} variants={childVariants} className="inline-block">
+                  {char}
+                </motion.span>
+              ))}
+              {/* Tambahkan spasi antar kata */}
+              <span className="inline-block">&nbsp;</span>
+            </div>
+          ))}
+        </motion.h1>
+      ))}
+    </div>
   );
 };
 

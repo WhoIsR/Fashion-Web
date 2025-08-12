@@ -38,17 +38,20 @@ export default {
           900: '#78350f',
         }
       },
+
       backgroundSize: {
-        '400%': '400% 400%',
+        '200%': '200% 200%',
       }, 
       animation: {
-        'fade-in-up': 'fadeInUp 0.6s ease-out',
+        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
         'fade-in-down': 'fadeInDown 0.6s ease-out',
         'slide-in-left': 'slideInLeft 0.6s ease-out',
         'slide-in-right': 'slideInRight 0.6s ease-out',
         'scale-in': 'scaleIn 0.4s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
         'gradient-flow': 'gradientFlow 15s ease infinite',
+        'subtle-bob': 'subtleBob 4s ease-in-out infinite',
+        'subtle-gradient': 'subtleGradient 20s ease-in-out infinite',
       },
       keyframes: {
         fadeInUp: {
