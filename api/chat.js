@@ -1,8 +1,7 @@
-// api/chat.js (Versi Final yang Lebih Tahan Banting)
+// File: api/chat.js (Versi Final dengan Streaming Aktif)
 
 export default {
   async fetch(request, env) {
-    // ... (bagian CORS header tetap sama)
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -13,9 +12,6 @@ export default {
     }
 
     try {
-      // +++ PERBAIKAN DI SINI +++
-      // Kita berikan nilai default `[]` untuk history
-      // Jadi, jika front-end tidak mengirim history, kode tidak akan crash.
       const { history = [], prompt } = await request.json();
 
       if (!prompt) {
@@ -23,18 +19,24 @@ export default {
       }
 
       const messages = [
-        { role: 'system', content: `You are "Arve", a world-class AI Fashion Consultant. Your personality is chic, friendly, and helpful. **Core Instruction: tends to use indonesian.** RULES: 1. Always stay in character. 2. Keep responses concise and use emojis (✨,👗,👠,🌸). 3. Give concrete examples.` },
+        { role: 'system', content: `You are "Arve", a world-class AI Fashion Consultant. Your personality is chic, friendly, and helpful. **Core Instruction: Always answer using Indonesian and don't use English unless asked to..** RULES: 1. Always stay in character. 2. Keep responses concise and use emojis (✨,👗,👠,🌸). 3. Give concrete examples. 4. **Use Markdown formatting (like **bold**, *italics*, and lists with '-' or '*') to make your responses easy to read.**` },
         ...history,
         { role: 'user', content: prompt }
       ];
 
       const aiResponse = await env.AI.run(
         '@cf/meta/llama-3-8b-instruct',
-        { messages }
+        { 
+          messages,
+          stream: true // <-- PASTIKAN INI ADA DAN BERNILAI TRUE
+        }
       );
 
-      return new Response(JSON.stringify({ reply: aiResponse.response }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      return new Response(aiResponse, {
+        headers: { 
+          ...corsHeaders, 
+          'Content-Type': 'text/event-stream' 
+        },
       });
 
     } catch (error) {
