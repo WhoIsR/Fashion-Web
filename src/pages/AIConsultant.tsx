@@ -62,7 +62,7 @@ const AIConsultant = () => {
       }));
 
     try {
-      const response = await fetch('https://arve-ai-backend.radjasatrio70.workers.dev/', {
+      const response = await fetch(import.meta.env.VITE_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
