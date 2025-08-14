@@ -10,6 +10,7 @@ import ProductDetail from './pages/ProductDetail';
 import ShoppingCart from './pages/ShoppingCart';
 import StyleQuiz from './pages/StyleQuiz';
 import AIConsultant from './pages/AIConsultant';
+import Checkout from './pages/Checkout';
 
 // Komponen ini akan membungkus semua halaman dan mengatur layout
 const AppLayout = () => {
@@ -27,6 +28,7 @@ const AppLayout = () => {
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/quiz" element={<StyleQuiz />} />
         <Route path="/consultant" element={<AIConsultant />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       {/* Footer hanya akan dirender jika showFooter bernilai true */}
       {showFooter && <Footer />}

@@ -19,10 +19,10 @@ const ShoppingCart = () => {
   
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 py-16">
+      <div className="min-h-screen bg-gray-50 pt-24 pb-16">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ShoppingBag size={64} className="mx-auto text-gray-300 mb-6" />
-          <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4" style={{ scrollMarginTop: '6rem' }}>
             Your Cart is Empty
           </h1>
           <p className="text-xl text-gray-600 mb-8">
@@ -38,72 +38,69 @@ const ShoppingCart = () => {
   }
   
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 pt-24 pb-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-8">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-8" style={{ scrollMarginTop: '6rem' }}>
           Shopping Cart ({state.items.reduce((sum, item) => sum + item.quantity, 0)} items)
         </h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4">
             {state.items.map((item, index) => (
               <div
                 key={`${item.id}-${item.selectedSize}-${item.selectedColor}`}
-                className="bg-white rounded-lg shadow-sm p-6 animate-fade-in-up"
+                className="bg-white rounded-lg shadow-sm p-3 sm:p-6 animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex flex-col sm:flex-row gap-6">
+                <div className="flex flex-row items-center gap-3 sm:gap-6">
                   {/* Product Image */}
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 w-16 h-16 sm:w-24 sm:h-24">
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full sm:w-24 h-32 sm:h-24 object-cover rounded-lg"
+                      className="w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-md"
                     />
                   </div>
-                  
                   {/* Product Details */}
-                  <div className="flex-1 space-y-4">
+                  <div className="flex-1 flex flex-col gap-2 sm:gap-4 justify-between">
                     <div>
-                      <h3 className="text-lg font-medium text-gray-900">
+                      <h3 className="text-sm sm:text-lg font-medium text-gray-900">
                         <Link to={`/product/${item.id}`} className="hover:text-gray-600 transition-colors">
                           {item.name}
                         </Link>
                       </h3>
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="text-xs sm:text-sm text-gray-500 mt-1">
                         Size: {item.selectedSize} • Color: {item.selectedColor}
                       </p>
                     </div>
-                    
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex flex-row items-center justify-between gap-2 sm:gap-4 mt-2 sm:mt-0">
                       {/* Quantity Controls */}
-                      <div className="flex items-center border border-gray-300 rounded-lg w-32">
+                      <div className="flex items-center border border-gray-300 rounded-lg w-20 sm:w-32">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="p-2 hover:bg-gray-50 transition-colors"
+                          className="p-1 sm:p-2 hover:bg-gray-50 transition-colors"
                         >
-                          <Minus size={16} />
+                          <Minus size={14} />
                         </button>
-                        <span className="flex-1 text-center font-medium">{item.quantity}</span>
+                        <span className="flex-1 text-center font-medium text-xs sm:text-base">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="p-2 hover:bg-gray-50 transition-colors"
+                          className="p-1 sm:p-2 hover:bg-gray-50 transition-colors"
                         >
-                          <Plus size={16} />
+                          <Plus size={14} />
                         </button>
                       </div>
-                      
                       {/* Price and Remove */}
-                      <div className="flex items-center justify-between sm:justify-end gap-4">
-                        <p className="text-lg font-semibold text-gray-900">
+                      <div className="flex items-center gap-2 sm:gap-4">
+                        <p className="text-sm sm:text-lg font-semibold text-gray-900 min-w-[56px] text-right">
                           ${(item.price * item.quantity).toFixed(2)}
                         </p>
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                          className="p-1 sm:p-2 text-gray-400 hover:text-red-500 transition-colors"
                         >
-                          <Trash2 size={18} />
+                          <Trash2 size={16} />
                         </button>
                       </div>
                     </div>
@@ -155,9 +152,9 @@ const ShoppingCart = () => {
               </div>
             )}
             
-            <button className="w-full mt-6 btn-primary">
+            <Link to="/checkout" className="w-full mt-6 btn-primary block text-center">
               Proceed to Checkout
-            </button>
+            </Link>
             
             <Link
               to="/catalog"

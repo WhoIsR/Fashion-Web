@@ -26,7 +26,7 @@ const Footer = () => {
               Your personal style destination. Discover curated fashion pieces and get personalized styling advice from our AI fashion consultant.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-white/70 hover:text-brand-pink transition-colors p-2">
+              <a href="https://www.instagram.com/satrioradja/?hl=en" className="text-white/70 hover:text-brand-pink transition-colors p-2">
                 <Instagram size={20} />
               </a>
               <a href="#" className="text-white/70 hover:text-brand-pink transition-colors p-2">

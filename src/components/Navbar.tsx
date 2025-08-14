@@ -67,7 +67,7 @@ const Navbar = () => {
                 {item.name}
                 <span className={`
                   absolute bottom-0 left-0 w-full h-0.5
-                  bg-brand-purple-dark/20 transform origin-left
+                  bg-brand-purple-dark/50 transform origin-left
                   transition-transform duration-300 ease-out
                   ${isActive(item.href) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
                 `}/>

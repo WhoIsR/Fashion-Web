@@ -42,7 +42,7 @@ export default {
       ];
 
       const aiResponse = await env.AI.run(
-        '@cf/meta/llama-3-8b-instruct',
+        '@cf/deepseek-ai/deepseek-r1-distill-qwen-32b',
         { 
           messages,
           stream: true
