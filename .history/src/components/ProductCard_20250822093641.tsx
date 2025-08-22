@@ -34,37 +34,31 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, clickable = false })
           alt={product.name}
         />
         
-        {/* Overlay (hidden on Shop page) */}
-        {!clickable && (
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
-        )}
+        {/* Overlay */}
+  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
         
-        {/* Action buttons (hidden on Shop page) */}
-        {!clickable && (
-          <div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Link to="/profile" className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200" aria-label="Wishlist">
-              <Heart size={16} className="text-gray-600 dark:text-dark-text" />
-            </Link>
-            <Link
-              to={`/product/${product.id}`}
-              className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200"
-            >
-              <Eye size={16} className="text-gray-600 dark:text-dark-text" />
-            </Link>
-          </div>
-        )}
+        {/* Action buttons */}
+        <div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Link to="/profile" className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200" aria-label="Wishlist">
+            <Heart size={16} className="text-gray-600 dark:text-dark-text" />
+          </Link>
+          <Link
+            to={`/product/${product.id}`}
+            className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200"
+          >
+            <Eye size={16} className="text-gray-600 dark:text-dark-text" />
+          </Link>
+        </div>
         
-        {/* Quick shop button (hidden on Shop page) */}
-        {!clickable && (
-          <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Link
-              to={`/product/${product.id}`}
-              className="w-full bg-white dark:bg-dark-card text-black dark:text-dark-text py-2 px-4 rounded-full text-sm font-medium text-center block hover:bg-gray-100 dark:hover:bg-dark-border transition-colors duration-200"
-            >
-              Quick Shop
-            </Link>
-          </div>
-        )}
+        {/* Quick shop button */}
+        <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <Link
+            to={`/product/${product.id}`}
+            className="w-full bg-white dark:bg-dark-card text-black dark:text-dark-text py-2 px-4 rounded-full text-sm font-medium text-center block hover:bg-gray-100 dark:hover:bg-dark-border transition-colors duration-200"
+          >
+            Quick Shop
+          </Link>
+        </div>
       </div>
       
       <div className="p-3 sm:p-4 md:p-6">
