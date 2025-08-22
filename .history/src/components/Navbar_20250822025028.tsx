@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingBag, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -32,22 +32,22 @@ const Navbar = () => {
     <nav className={`
       fixed w-full transition-all duration-300 backdrop-blur-sm
       ${isScrolled 
-        ? 'bg-white/75 dark:bg-dark-background/75 shadow-lg' 
-        : 'bg-white/95 dark:bg-dark-background/95'} 
-      border-b border-gray-100/50 dark:border-dark-border/50 z-[1000]
+        ? 'bg-white/75 shadow-lg' 
+        : 'bg-white/95'} 
+      border-b border-gray-100/50 z-[1000]
     `}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo with hover animation */}
           <Link to="/" className="logo-container group">
             <div className="flex items-center space-x-1 transition-transform duration-300 group-hover:scale-105">
-              <span className="logo-text dark:text-dark-text">AR</span>
+              <span className="logo-text">AR</span>
               <div className="logo-middle relative">
-                <span className="logo-v-top dark:text-dark-text">V</span>
-                <div className="logo-dot dark:bg-dark-primary"></div>
-                <span className="logo-v-bottom dark:text-dark-text">V</span>
+                <span className="logo-v-top">V</span>
+                <div className="logo-dot"></div>
+                <span className="logo-v-bottom">V</span>
               </div>
-              <span className="logo-text dark:text-dark-text">E</span>
+              <span className="logo-text">E</span>
             </div>
           </Link>
           
@@ -60,15 +60,15 @@ const Navbar = () => {
                 className={`
                   relative text-sm font-medium transition-all duration-200 py-1
                   ${isActive(item.href)
-                    ? 'text-brand-purple-dark dark:text-dark-primary'
-                    : 'text-brand-text dark:text-dark-text hover:text-brand-purple-dark dark:hover:text-dark-primary'}
+                    ? 'text-brand-purple-dark'
+                    : 'text-brand-text hover:text-brand-purple-dark'}
                   group
                 `}
               >
                 {item.name}
                 <span className={`
                   absolute bottom-0 left-0 w-full h-0.5
-                  bg-brand-purple-dark/50 dark:bg-dark-primary/50 transform origin-left
+                  bg-brand-purple-dark/50 transform origin-left
                   transition-transform duration-300 ease-out
                   ${isActive(item.href) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
                 `}/>
@@ -84,13 +84,13 @@ const Navbar = () => {
                 size={20} 
                 className={`
                   transform transition-all duration-200
-                  text-brand-text dark:text-dark-text group-hover:text-brand-purple-dark dark:hover:text-dark-primary
+                  text-brand-text group-hover:text-brand-purple-dark
                   group-hover:scale-110
                 `}
               />
               {state.items.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-brand-purple-dark dark:bg-dark-primary
-                  text-white dark:text-dark-background text-xs rounded-full h-5 w-5 
+                <span className="absolute -top-1 -right-1 bg-brand-purple-dark 
+                  text-white text-xs rounded-full h-5 w-5 
                   flex items-center justify-center
                   transform transition-transform duration-200
                   group-hover:scale-110 animate-pulse">
@@ -102,11 +102,9 @@ const Navbar = () => {
             <button className="p-2 group">
               <User 
                 size={20} 
-                className={`
-                  transform transition-all duration-200
-                  text-brand-text dark:text-dark-text group-hover:text-brand-purple-dark dark:hover:text-dark-primary
-                  group-hover:scale-110
-                `}
+                className="transform transition-all duration-200 
+                  text-brand-text group-hover:text-brand-purple-dark
+                  group-hover:scale-110"
               />
             </button>
 
@@ -114,29 +112,33 @@ const Navbar = () => {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-md text-brand-text dark:text-dark-text hover:bg-gray-100 dark:hover:bg-dark-card"
+                className="p-2 group"
               >
-                <span className="sr-only">Open main menu</span>
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
+                <div className="transform transition-all duration-200 
+                  text-brand-text group-hover:text-brand-purple-dark">
+                  {isOpen ? <X size={20} /> : <Menu size={20} />}
+                </div>
               </button>
             </div>
           </div>
         </div>
-        
-        {/* Mobile Menu */}
-        <div className="md:hidden" id="mobile-menu">
-          <div className={`px-2 pt-2 pb-3 space-y-1 sm:px-3 ${isOpen ? 'block' : 'hidden'}`}>
+      </div>
+      
+      {/* Mobile Navigation with slide animation */}
+      {isOpen && (
+        <div className="md:hidden fixed inset-x-0 top-16 bg-brand-bg-light 
+          border-t border-gray-100 shadow-lg animate-fadeDown">
+          <div className="px-4 py-6 space-y-4">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 onClick={() => setIsOpen(false)}
                 className={`
-                  block px-3 py-2 rounded-md text-base font-medium
-                  transition-all duration-200
+                  block text-lg font-medium transition-all duration-200
                   ${isActive(item.href)
-                    ? 'bg-brand-purple-light/20 text-brand-purple-dark dark:bg-dark-primary/20 dark:text-dark-primary'
-                    : 'text-brand-text dark:text-dark-text hover:bg-gray-50 dark:hover:bg-dark-card hover:text-brand-purple-dark dark:hover:text-dark-primary'}
+                    ? 'text-brand-purple-dark pl-4 border-l-2 border-brand-purple-dark'
+                    : 'text-brand-text hover:text-brand-purple-dark hover:pl-4'}
                 `}
               >
                 {item.name}
@@ -144,7 +146,7 @@ const Navbar = () => {
             ))}
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

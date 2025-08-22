@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+module.exports = {
+  darkMode: 'class',
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -8,11 +12,19 @@ export default {
         'serif': ['Playfair Display', 'serif'],
       },
       colors: {
-      'brand-purple-dark': '#6A4068',
-      'brand-purple-light': '#EBA4E6',
-      'brand-pink': '#ECA4BC',
-      'brand-text': '#2c2c2c',
-      'brand-bg-light': '#FEF9FB',
+        'brand-purple-dark': '#6A4068',
+        'brand-purple-light': '#EBA4E6',
+        'brand-pink': '#ECA4BC',
+        'brand-text': '#2c2c2c',
+        'brand-bg-light': '#FEF9FB',
+        dark: {
+          background: '#1a1a1a',
+          text: '#f8f8f8',
+          primary: '#c084fc',
+          secondary: '#f472b6',
+          card: '#2a2a2a',
+          border: '#404040',
+        },
         primary: {
           50: '#fafafa',
           100: '#f5f5f5',

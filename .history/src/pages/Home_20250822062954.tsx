@@ -219,30 +219,38 @@ const MobileProductCarousel = () => {
 }
 
 const Home = () => {
-    const masonryContent = [
-        { type: 'quote', id: 'quote-1', text: "Style isn't just what you wear — it's who you are.", author: "Fashion Philosophy" },
-        { type: 'product', id: 'product-1', product: mockProducts[0] },
-        { type: 'model', id: 'model-1', image: 'https://images.pexels.com/photos/1721558/pexels-photo-1721558.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Street Style Inspiration'},
-        { type: 'model', id: 'model-2', image: 'https://images.pexels.com/photos/1065084/pexels-photo-1065084.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Elegant Evening Look'},
-        { type: 'product', id: 'product-3', product: mockProducts[2] },
-        { type: 'quote', id: 'quote-2', text: "Fashion fades, but style is eternal.", author: "Yves Saint Laurent"},
-        { type: 'product', id: 'product-5', product: mockProducts[4] },
-        { type: 'model', id: 'model-3', image: 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Casual Chic'},
-        { type: 'product', id: 'product-4', product: mockProducts[5] },
-        { type: 'model', id: 'model-4', image: 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Business Elegance'},
-        { type: 'quote', id: 'quote-3', text: "Dress like you're already famous.", author: "Fashion Mantra"},
-        { type: 'product', id: 'product-2', product: mockProducts[1] },
-      ];
-    return (
-  <div className="min-h-screen bg-brand-bg-light dark:bg-dark-background">
-        <HeroSection />
-  
+  const masonryContent: MasonryItem[] = [
+    { type: 'product', id: 'p1', product: mockProducts[4] },
+    { type: 'model', id: 'm1', image: 'https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Street Style Ready' },
+    { type: 'quote', id: 'q1', text: "Fashion is the armor to survive the reality of everyday life.", author: "Bill Cunningham" },
+    { type: 'product', id: 'p2', product: mockProducts[5] },
+    { type: 'model', id: 'm2', image: 'https://images.pexels.com/photos/3755706/pexels-photo-3755706.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Elegant Evening Look' },
+    { type: 'product', id: 'p3', product: mockProducts[6] },
+    { type: 'quote', id: 'q2', text: "Style is a way to say who you are without having to speak.", author: "Rachel Zoe" },
+    { type: 'model', id: 'm3', image: 'https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Dapper & Classic' },
+    { type: 'product', id: 'p4', product: mockProducts[7] },
+  ];
+
+  const featureCardVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    hover: {
+      y: -8,
+      boxShadow: "0px 20px 30px -10px rgba(106, 64, 104, 0.2)",
+      transition: { type: "spring", stiffness: 300, damping: 15 }
+    }
+  };
+
+  return (
+    <div className="bg-brand-bg-light dark:bg-dark-background">
+      <HeroSection />
+      <main>
         <SectionWrapper className="py-20" animation="scaleIn">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div variants={variants.fadeInUp} className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text dark:text-dark-text mb-4">Style Inspiration</h2><p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Discover your next favorite piece through our curated collection of fashion moments</p></motion.div>
+            <motion.div variants={variants.fadeInUp as Variants} className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text dark:text-dark-text mb-4">Style Inspiration</h2><p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Discover your next favorite piece through our curated collection of fashion moments</p></motion.div>
             <motion.div className="masonry-container" variants={{ visible: { transition: { staggerChildren: 0.05 } } }}>
               {masonryContent.map((item) => (
-                <motion.div key={item.id} className="masonry-item mb-6" variants={variants.scaleIn} >
+                <motion.div key={item.id} className="masonry-item mb-6" variants={variants.scaleIn as Variants} >
                   {item.type === 'quote' && <QuoteCard text={item.text} author={item.author} />}
                   {item.type === 'model' && <ModelCard image={item.image} title={item.title} />}
                   {item.type === 'product' && <ProductMasonryCard product={item.product} />}
@@ -254,13 +262,13 @@ const Home = () => {
         
         <SectionWrapper className="py-20 overflow-hidden" animation="fadeInUp">
           <div className="max-w-7xl mx-auto">
-        <motion.div variants={variants.fadeInUp} className="flex flex-col sm:flex-row justify-between sm:items-center mb-12 text-center sm:text-left px-4 sm:px-6 lg:px-8">
-          <div><h2 className="text-3xl font-serif font-bold text-brand-text dark:text-dark-text mb-2">Best Sellers</h2><p className="text-gray-600 dark:text-gray-300">Our most loved pieces this season</p></div>
+              <motion.div variants={variants.fadeInUp as Variants} className="flex flex-col sm:flex-row justify-between sm:items-center mb-12 text-center sm:text-left px-4 sm:px-6 lg:px-8">
+                  <div><h2 className="text-3xl font-serif font-bold text-brand-text dark:text-dark-text mb-2">Best Sellers</h2><p className="text-gray-600 dark:text-gray-300">Our most loved pieces this season</p></div>
                   <Link to="/catalog" className="btn-secondary hidden md:inline-flex items-center mt-4 sm:mt-0">View All <ArrowRight size={18} className="ml-2" /></Link>
               </motion.div>
             <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-6 lg:px-8">
               {mockProducts.slice(0, 4).map((product) => (
-                <motion.div key={product.id} variants={variants.fadeInUp}>
+                <motion.div key={product.id} variants={variants.fadeInUp as Variants}>
                   <ProductCard product={product} />
                 </motion.div>
               ))}
@@ -271,7 +279,7 @@ const Home = () => {
         </SectionWrapper>
         
         <SectionWrapper className="py-20">
-          <motion.div variants={variants.fadeInUp} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={variants.fadeInUp as Variants} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text dark:text-dark-text mb-4">Why Choose ARVE?</h2><p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Experience fashion like never before with our personalized approach to style</p></div>
             <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-12" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
               {[ { icon: Sparkles, title: "ARVE Style Consultant", text: "Get personalized outfit recommendations and styling advice." }, { icon: Users, title: "Curated Collections", text: "Carefully selected pieces from top designers and emerging brands." }, { icon: Award, title: "Premium Quality", text: "Every piece meets the highest standards of quality and craftsmanship." }].map((feature) => {
@@ -280,14 +288,14 @@ const Home = () => {
                   <motion.div 
                     key={feature.title} 
                     className="text-center group p-6 rounded-2xl" 
-                    variants={{ ...variants.fadeInUp, ...variants.cardHover }}
+                    variants={featureCardVariants}
                     whileHover="hover"
                   >
-                    <div className="w-16 h-16 bg-brand-pink/10 rounded-full flex items-center justify-center mx-auto mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
-                        <Icon size={28} className="text-brand-purple-dark" />
+                    <div className="w-16 h-16 bg-brand-pink/10 dark:bg-dark-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                        <Icon size={28} className="text-brand-purple-dark dark:text-dark-primary" />
                     </div>
-                    <h3 className="text-2xl font-serif font-semibold text-brand-text mb-4">{feature.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{feature.text}</p>
+                    <h3 className="text-2xl font-serif font-semibold text-brand-text dark:text-dark-text mb-4">{feature.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{feature.text}</p>
                   </motion.div>
                 );
               })}
@@ -295,29 +303,27 @@ const Home = () => {
           </motion.div>
         </SectionWrapper>
         
-        <section className="py-24 bg-brand-purple-dark text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-tr from-brand-text via-brand-purple-dark to-brand-pink opacity-80 animate-gradient-flow bg-200%"></div>
+        <section className="py-24 bg-brand-purple-dark dark:bg-dark-card text-white relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-tr from-brand-text via-brand-purple-dark to-brand-pink opacity-80 dark:from-dark-primary dark:via-dark-card dark:to-dark-secondary animate-gradient-flow bg-200%"></div>
             <motion.div 
               initial="hidden"
               whileInView="visible"
-              // ===== INI PERUBAHAN UTAMANYA =====
               viewport={{ once: false, amount: 0.5 }}
-              // ===================================
               transition={{ staggerChildren: 0.2 }}
               className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
             >
               <div className='overflow-hidden mb-6'>
-                <motion.h2 variants={variants.textReveal} className="text-4xl md:text-5xl font-serif font-bold">
+                <motion.h2 variants={variants.textReveal as Variants} className="text-4xl md:text-5xl font-serif font-bold">
                     Ready to Transform Your Style?
                 </motion.h2>
               </div>
               <div className='overflow-hidden mb-12'>
-                <motion.p variants={variants.textReveal} className="text-xl text-white/80 max-w-2xl mx-auto">
+                <motion.p variants={variants.textReveal as Variants} className="text-xl text-white/80 max-w-2xl mx-auto">
                     Take our style quiz and let our AI consultant create a personalized fashion journey for you.
                 </motion.p>
               </div>
             <motion.div 
-                variants={variants.fadeInUp}
+                variants={variants.fadeInUp as Variants}
                 className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center"
             >
                 <Link to="/quiz" className="btn-accent inline-flex items-center w-full sm:w-auto justify-center"><Sparkles size={18} className="mr-2" /> Start Style Quiz</Link>
@@ -325,8 +331,9 @@ const Home = () => {
             </motion.div>
           </motion.div>
         </section>
-      </div>
-    );
+      </main>
+    </div>
+  );
 };
-  
+
 export default Home;

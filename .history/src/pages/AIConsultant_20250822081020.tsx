@@ -96,7 +96,7 @@ const AIConsultant = () => {
   const suggestionButtons = [ "Rekomendasikan atasan untuk musim panas", "Celana hitam cocoknya dengan apa?" ];
 
   return (
-    <div className="bg-gradient-to-b from-white via-pink-50 to-purple-50 dark:from-dark-background dark:via-gray-900/50 dark:to-purple-900/20">
+    <div className="bg-white dark:bg-dark-background">
       
       {/* HEADER TETAP SAMA DENGAN `sticky` */}
       <header className="bg-white/95 dark:bg-dark-background/95 backdrop-blur-md border-b border-gray-200 dark:border-dark-border fixed top-16 left-0 right-0 z-40 shadow-sm">

@@ -11,7 +11,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     line-height: 1.6;
-    @apply bg-brand-bg-light text-brand-text;
+    @apply bg-white text-brand-text;
     @apply dark:bg-dark-background dark:text-dark-text;
   }
   

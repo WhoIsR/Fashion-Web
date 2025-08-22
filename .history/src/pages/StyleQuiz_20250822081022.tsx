@@ -99,54 +99,94 @@ const StyleQuiz = () => {
   };
   
   if (showResults) {
-    const styleProfile = getStyleProfile();
+    const { style, description, recommendations } = getStyleProfile();
     
     return (
-      <div className="min-h-screen bg-brand-bg-light dark:bg-dark-background py-16">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-scale-in">
-            <Sparkles size={48} className="text-purple-500 dark:text-dark-primary mx-auto mb-6" />
-            <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-dark-text mb-4">
-              Your Style Profile
+      <div className="min-h-screen bg-gray-50 dark:bg-dark-background pt-24 pb-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-dark-text mb-4">
+              Find Your Personal Style
             </h1>
-            <div className="bg-white dark:bg-dark-card rounded-2xl shadow-xl p-8 mb-8">
-              <h2 className="text-3xl font-serif font-bold text-purple-600 dark:text-dark-primary mb-4">
-                {styleProfile.style}
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                {styleProfile.description}
-              </p>
-              
-              <div className="text-left">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-dark-text mb-4">
-                  Recommended for you:
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {styleProfile.recommendations.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-purple-50 dark:bg-dark-primary/20 rounded-lg p-3 text-center font-medium text-purple-800 dark:text-dark-primary"
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Take our quick quiz to get personalized recommendations
+            </p>
+          </div>
+          
+          <div className="bg-white dark:bg-dark-card rounded-lg shadow-lg p-8 md:p-12 min-h-[500px] flex flex-col justify-between">
+            {!showResults ? (
+              <div>
+                {/* Question */}
+                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-dark-text mb-8">
+                  {questions[currentQuestion].question}
+                </h2>
+                
+                {/* Options */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {questions[currentQuestion].options.map(option => (
+                    <button
+                      key={option}
+                      onClick={() => handleAnswer(option)}
+                      className={`p-4 border rounded-lg text-left transition-all duration-200 ${
+                        answers[questions[currentQuestion].id] === option
+                          ? 'border-brand-purple-dark dark:border-dark-primary bg-brand-purple-light/20 dark:bg-dark-primary/20 ring-2 ring-brand-purple-dark dark:ring-dark-primary'
+                          : 'border-gray-300 dark:border-dark-border hover:border-brand-purple-dark dark:hover:border-dark-primary hover:bg-gray-50 dark:hover:bg-dark-border'
+                      }`}
                     >
-                      {item}
-                    </div>
+                      <span className="font-medium text-gray-800 dark:text-dark-text">{option}</span>
+                    </button>
                   ))}
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="text-center">
+                <Sparkles size={48} className="mx-auto text-brand-purple-dark dark:text-dark-primary mb-4" />
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-dark-text mb-2">{style}</h2>
+                <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">{description}</p>
+                
+                <div className="text-left max-w-md mx-auto">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-dark-text mb-4">We recommend:</h3>
+                  <ul className="space-y-2">
+                    {recommendations.map(rec => (
+                      <li key={rec} className="flex items-center">
+                        <ChevronRight size={16} className="mr-2 text-brand-purple-dark dark:text-dark-primary" />
+                        <span className="text-gray-700 dark:text-gray-300">{rec}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <button
+                  onClick={resetQuiz}
+                  className="mt-8 btn-secondary"
+                >
+                  Retake Quiz
+                </button>
+              </div>
+            )}
             
-            <div className="space-y-4">
+            {/* Navigation */}
+            <div className="flex justify-between items-center mt-8">
               <button
-                onClick={() => window.open('/catalog', '_self')}
-                className="btn-primary inline-flex items-center"
+                onClick={goToPrevious}
+                disabled={currentQuestion === 0}
+                className="flex items-center px-4 py-2 border border-gray-300 dark:border-dark-border rounded-lg hover:bg-gray-50 dark:hover:bg-dark-border disabled:opacity-50 disabled:cursor-not-allowed text-gray-800 dark:text-dark-text"
               >
-                Shop Your Style
-                <ChevronRight size={18} className="ml-2" />
+                <ChevronLeft size={18} className="mr-2" />
+                Previous
               </button>
+              
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                {currentQuestion + 1} / {questions.length}
+              </div>
+              
               <button
-                onClick={resetQuiz}
-                className="block mx-auto text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
+                onClick={goToNext}
+                disabled={!answers[questions[currentQuestion].id]}
+                className="flex items-center px-4 py-2 border border-gray-300 dark:border-dark-border rounded-lg hover:bg-gray-50 dark:hover:bg-dark-border disabled:opacity-50 disabled:cursor-not-allowed text-gray-800 dark:text-dark-text"
               >
-                Retake Quiz
+                Next
+                <ChevronRight size={18} className="ml-2" />
               </button>
             </div>
           </div>
@@ -158,7 +198,7 @@ const StyleQuiz = () => {
   const progress = ((currentQuestion + 1) / questions.length) * 100;
   
   return (
-    <div className="min-h-screen bg-brand-bg-light dark:bg-dark-background py-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-dark-background py-16">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <Sparkles size={48} className="text-purple-500 dark:text-dark-primary mx-auto mb-6 animate-bounce-gentle" />
@@ -172,13 +212,13 @@ const StyleQuiz = () => {
         
         {/* Progress Bar */}
         <div className="mb-8">
-      <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
+          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
             <span>Question {currentQuestion + 1} of {questions.length}</span>
             <span>{Math.round(progress)}% Complete</span>
           </div>
-      <div className="w-full bg-gray-200 dark:bg-dark-card rounded-full h-2">
+          <div className="w-full bg-gray-200 dark:bg-dark-card rounded-full h-2">
             <div
-        className="bg-purple-500 dark:bg-dark-primary h-2 rounded-full transition-all duration-300"
+              className="bg-purple-500 dark:bg-dark-primary h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -226,7 +266,7 @@ const StyleQuiz = () => {
               disabled={!answers[questions[currentQuestion].id]}
               className={`flex items-center px-6 py-3 rounded-full font-medium transition-all ${
                 answers[questions[currentQuestion].id]
-                  ? 'bg-purple-500 dark:bg-dark-primary text-white dark:text-dark-background hover:bg-purple-600 dark:hover:bg-purple-400'
+                  ? 'bg-purple-500 dark:bg-dark-primary text-white dark:text-dark-background hover:bg-purple-600 dark:hover:bg-purple-300'
                   : 'bg-gray-300 dark:bg-dark-border text-gray-500 dark:text-gray-400 cursor-not-allowed'
               }`}
             >

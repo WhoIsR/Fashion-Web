@@ -92,7 +92,7 @@ const ProductCatalog = () => {
   };
   
   return (
-    <div className="min-h-screen pt-24 pb-8 bg-brand-bg-light dark:bg-dark-background">
+    <div className="min-h-screen pt-24 pb-8 bg-white dark:bg-dark-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">

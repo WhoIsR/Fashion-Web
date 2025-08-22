@@ -234,12 +234,12 @@ const Home = () => {
         { type: 'product', id: 'product-2', product: mockProducts[1] },
       ];
     return (
-  <div className="min-h-screen bg-brand-bg-light dark:bg-dark-background">
+      <div className="min-h-screen">
         <HeroSection />
   
         <SectionWrapper className="py-20" animation="scaleIn">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div variants={variants.fadeInUp} className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text dark:text-dark-text mb-4">Style Inspiration</h2><p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Discover your next favorite piece through our curated collection of fashion moments</p></motion.div>
+            <motion.div variants={variants.fadeInUp} className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text mb-4">Style Inspiration</h2><p className="text-xl text-gray-600 max-w-2xl mx-auto">Discover your next favorite piece through our curated collection of fashion moments</p></motion.div>
             <motion.div className="masonry-container" variants={{ visible: { transition: { staggerChildren: 0.05 } } }}>
               {masonryContent.map((item) => (
                 <motion.div key={item.id} className="masonry-item mb-6" variants={variants.scaleIn} >
@@ -254,8 +254,8 @@ const Home = () => {
         
         <SectionWrapper className="py-20 overflow-hidden" animation="fadeInUp">
           <div className="max-w-7xl mx-auto">
-        <motion.div variants={variants.fadeInUp} className="flex flex-col sm:flex-row justify-between sm:items-center mb-12 text-center sm:text-left px-4 sm:px-6 lg:px-8">
-          <div><h2 className="text-3xl font-serif font-bold text-brand-text dark:text-dark-text mb-2">Best Sellers</h2><p className="text-gray-600 dark:text-gray-300">Our most loved pieces this season</p></div>
+              <motion.div variants={variants.fadeInUp} className="flex flex-col sm:flex-row justify-between sm:items-center mb-12 text-center sm:text-left px-4 sm:px-6 lg:px-8">
+                  <div><h2 className="text-3xl font-serif font-bold text-brand-text mb-2">Best Sellers</h2><p className="text-gray-600">Our most loved pieces this season</p></div>
                   <Link to="/catalog" className="btn-secondary hidden md:inline-flex items-center mt-4 sm:mt-0">View All <ArrowRight size={18} className="ml-2" /></Link>
               </motion.div>
             <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-6 lg:px-8">
@@ -272,7 +272,7 @@ const Home = () => {
         
         <SectionWrapper className="py-20">
           <motion.div variants={variants.fadeInUp} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text dark:text-dark-text mb-4">Why Choose ARVE?</h2><p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Experience fashion like never before with our personalized approach to style</p></div>
+            <div className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text mb-4">Why Choose ARVE?</h2><p className="text-xl text-gray-600 max-w-2xl mx-auto">Experience fashion like never before with our personalized approach to style</p></div>
             <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-12" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
               {[ { icon: Sparkles, title: "ARVE Style Consultant", text: "Get personalized outfit recommendations and styling advice." }, { icon: Users, title: "Curated Collections", text: "Carefully selected pieces from top designers and emerging brands." }, { icon: Award, title: "Premium Quality", text: "Every piece meets the highest standards of quality and craftsmanship." }].map((feature) => {
                 const Icon = feature.icon;

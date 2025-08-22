@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-  <div className="group relative bg-white dark:bg-dark-card rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="group relative bg-white dark:bg-dark-card rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden relative">
         <img
           className="h-80 w-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
@@ -18,18 +18,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
         
         {/* Overlay */}
-  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
         
         {/* Action buttons */}
         <div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200">
-            <Heart size={16} className="text-gray-600 dark:text-dark-text" />
+          <button className="p-2 bg-white dark:bg-dark-background rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+            <Heart size={16} className="text-gray-600 dark:text-gray-300" />
           </button>
           <Link
             to={`/product/${product.id}`}
-            className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200"
+            className="p-2 bg-white dark:bg-dark-background rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
           >
-            <Eye size={16} className="text-gray-600 dark:text-dark-text" />
+            <Eye size={16} className="text-gray-600 dark:text-gray-300" />
           </Link>
         </div>
         
@@ -37,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <Link
             to={`/product/${product.id}`}
-            className="w-full bg-white dark:bg-dark-card text-black dark:text-dark-text py-2 px-4 rounded-full text-sm font-medium text-center block hover:bg-gray-100 dark:hover:bg-dark-border transition-colors duration-200"
+            className="w-full bg-white dark:bg-dark-background text-black dark:text-white py-2 px-4 rounded-full text-sm font-medium text-center block hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
           >
             Quick Shop
           </Link>
@@ -53,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </Link>
         </h3>
-        <p className="text-xl font-semibold text-gray-900 dark:text-dark-text">
+        <p className="text-xl font-semibold text-gray-900 dark:text-dark-primary">
           ${product.price}
         </p>
         
@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.colors.slice(0, 4).map((color, index) => (
             <div
               key={index}
-              className={`w-3 h-3 rounded-full border border-gray-300 ${
+              className={`w-3 h-3 rounded-full border border-gray-300 dark:border-gray-600 ${
                 color.toLowerCase() === 'black' ? 'bg-black' :
                 color.toLowerCase() === 'white' ? 'bg-white' :
                 color.toLowerCase() === 'navy' ? 'bg-blue-900' :

@@ -92,37 +92,37 @@ const ProductCatalog = () => {
   };
   
   return (
-    <div className="min-h-screen pt-24 pb-8 bg-brand-bg-light dark:bg-dark-background">
+    <div className="min-h-screen pt-24 pb-8"> {/* Changed py-8 to pt-24 pb-8 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-dark-text mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
             Shop Collection
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Discover our carefully curated selection of premium fashion pieces
           </p>
         </div>
         
         {/* Search and Filter Controls */}
-        <div className="bg-white dark:bg-dark-card rounded-lg shadow-sm p-6 mb-8">
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4 items-center">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
-              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-dark-border rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-dark-primary focus:border-transparent bg-white dark:bg-dark-background text-gray-900 dark:text-dark-text"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
               />
             </div>
             
             {/* Filter Toggle (Mobile) */}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="lg:hidden flex items-center px-4 py-2 border border-gray-300 dark:border-dark-border rounded-lg hover:bg-gray-50 dark:hover:bg-dark-border text-gray-900 dark:text-dark-text"
+              className="lg:hidden flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
             >
               <Filter size={18} className="mr-2" />
               Filters
@@ -133,7 +133,7 @@ const ProductCatalog = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none bg-white dark:bg-dark-background border border-gray-300 dark:border-dark-border rounded-lg px-4 py-2 pr-8 focus:ring-2 focus:ring-black dark:focus:ring-dark-primary focus:border-transparent text-gray-900 dark:text-dark-text"
+                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2 pr-8 focus:ring-2 focus:ring-black focus:border-transparent"
               >
                 {sortOptions.map(option => (
                   <option key={option.value} value={option.value}>
@@ -141,7 +141,7 @@ const ProductCatalog = () => {
                   </option>
                 ))}
               </select>
-              <ChevronDown size={16} className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none" />
+              <ChevronDown size={16} className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
             </div>
           </div>
           
@@ -149,11 +149,11 @@ const ProductCatalog = () => {
           <div className={`mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 ${showFilters ? 'block' : 'hidden lg:grid'}`}>
             {/* Category Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full border border-gray-300 dark:border-dark-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-black dark:focus:ring-dark-primary focus:border-transparent bg-white dark:bg-dark-background text-gray-900 dark:text-dark-text"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-black focus:border-transparent"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -165,11 +165,11 @@ const ProductCatalog = () => {
             
             {/* Size Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Size</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Size</label>
               <select
                 value={selectedSize}
                 onChange={(e) => setSelectedSize(e.target.value)}
-                className="w-full border border-gray-300 dark:border-dark-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-black dark:focus:ring-dark-primary focus:border-transparent bg-white dark:bg-dark-background text-gray-900 dark:text-dark-text"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-black focus:border-transparent"
               >
                 {sizes.map(size => (
                   <option key={size} value={size}>
@@ -181,11 +181,11 @@ const ProductCatalog = () => {
             
             {/* Color Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Color</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
               <select
                 value={selectedColor}
                 onChange={(e) => setSelectedColor(e.target.value)}
-                className="w-full border border-gray-300 dark:border-dark-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-black dark:focus:ring-dark-primary focus:border-transparent bg-white dark:bg-dark-background text-gray-900 dark:text-dark-text"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-black focus:border-transparent"
               >
                 {colors.map(color => (
                   <option key={color} value={color}>
@@ -197,11 +197,11 @@ const ProductCatalog = () => {
             
             {/* Price Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Price</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
               <select
                 value={priceRange}
                 onChange={(e) => setPriceRange(e.target.value)}
-                className="w-full border border-gray-300 dark:border-dark-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-black dark:focus:ring-dark-primary focus:border-transparent bg-white dark:bg-dark-background text-gray-900 dark:text-dark-text"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-black focus:border-transparent"
               >
                 {priceRanges.map(range => (
                   <option key={range.value} value={range.value}>
@@ -211,33 +211,47 @@ const ProductCatalog = () => {
               </select>
             </div>
             
-            {/* Clear Filters Button */}
-            <div className="col-span-2 md:col-span-4 lg:col-span-1 flex items-end">
+            {/* Clear Filters */}
+            <div className="flex items-end">
               <button
                 onClick={clearFilters}
-                className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-purple-dark hover:bg-opacity-90 dark:bg-dark-primary dark:text-dark-background dark:hover:bg-opacity-90"
+                className="w-full px-4 py-2 text-sm text-gray-600 hover:text-black transition-colors"
               >
-                <X size={16} className="mr-2" />
-                Clear Filters
+                Clear All
               </button>
             </div>
           </div>
         </div>
         
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+        {/* Results Count */}
+        <div className="flex justify-between items-center mb-8">
+          <p className="text-gray-600">
+            Showing {filteredProducts.length} of {mockProducts.length} products
+          </p>
+        </div>
+        
+        {/* Products Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+          {filteredProducts.map((product, index) => (
+            <div
+              key={product.id}
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
         
-        {/* No Results */}
         {filteredProducts.length === 0 && (
-          <div className="text-center py-16">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-dark-text mb-2">No products found</h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              Try adjusting your filters or search term.
-            </p>
+          <div className="text-center py-12">
+            <p className="text-xl text-gray-500 mb-4">No products found matching your criteria</p>
+            <button
+              onClick={clearFilters}
+              className="btn-primary"
+            >
+              Clear Filters
+            </button>
           </div>
         )}
       </div>

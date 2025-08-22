@@ -18,7 +18,7 @@ const AppLayout = () => {
   const showFooter = location.pathname !== '/consultant'; // Footer tidak akan muncul jika halaman adalah /consultant
 
   return (
-    <div className="App min-h-screen bg-brand-bg-light dark:bg-dark-background text-brand-text dark:text-dark-text transition-colors">
+    <div className="App bg-gradient-to-br from-purple-50 to-pink-50">
       <Toaster position="top-right" />
       <Navbar />
       <Routes>

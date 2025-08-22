@@ -41,13 +41,13 @@ const Navbar = () => {
           {/* Logo with hover animation */}
           <Link to="/" className="logo-container group">
             <div className="flex items-center space-x-1 transition-transform duration-300 group-hover:scale-105">
-              <span className="logo-text dark:text-dark-text">AR</span>
+              <span className="logo-text" style={{ color: '#2A2A2A' }}>AR</span>
               <div className="logo-middle relative">
-                <span className="logo-v-top dark:text-dark-text">V</span>
-                <div className="logo-dot dark:bg-dark-primary"></div>
-                <span className="logo-v-bottom dark:text-dark-text">V</span>
+                <span className="logo-v-top" style={{ color: '#2A2A2A' }}>V</span>
+                <div className="logo-dot" style={{ backgroundColor: '#4A3F6D' }}></div>
+                <span className="logo-v-bottom" style={{ color: '#2A2A2A' }}>V</span>
               </div>
-              <span className="logo-text dark:text-dark-text">E</span>
+              <span className="logo-text" style={{ color: '#2A2A2A' }}>E</span>
             </div>
           </Link>
           

@@ -48,7 +48,7 @@ const SectionWrapper = ({ children, className = '', animation = "fadeInUp" }: { 
       // ===================================
       variants={variants[animation]}
       transition={{ staggerChildren: 0.1 }}
-      className={`${className} dark:bg-dark-background`}
+      className={className}
     >
       {children}
     </motion.section>
@@ -56,9 +56,9 @@ const SectionWrapper = ({ children, className = '', animation = "fadeInUp" }: { 
 };
 
 // --- KARTU-KARTU (TIDAK ADA PERUBAHAN) ---
-const QuoteCard = ({ text, author }: { text: string; author: string }) => (<div className="group relative overflow-hidden rounded-2xl bg-brand-bg-light dark:bg-dark-card p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 h-full"><div className="absolute inset-0 bg-gradient-to-br from-brand-pink/10 to-brand-purple-light/10 dark:from-dark-secondary/10 dark:to-dark-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" /><div className="relative z-10 h-full flex flex-col justify-center"><Sparkles size={24} className="text-brand-pink dark:text-dark-secondary mb-4 group-hover:scale-105 transition-transform duration-300" /><blockquote className="text-lg md:text-xl font-serif font-medium text-brand-text dark:text-dark-text mb-3 leading-relaxed">"{text}"</blockquote><cite className="text-sm text-brand-purple-dark dark:text-dark-primary font-medium">— {author}</cite></div></div>);
+const QuoteCard = ({ text, author }: { text: string; author: string }) => (<div className="group relative overflow-hidden rounded-2xl bg-brand-bg-light p-6 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 h-full"><div className="absolute inset-0 bg-gradient-to-br from-brand-pink/10 to-brand-purple-light/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" /><div className="relative z-10 h-full flex flex-col justify-center"><Sparkles size={24} className="text-brand-pink mb-4 group-hover:scale-105 transition-transform duration-300" /><blockquote className="text-lg md:text-xl font-serif font-medium text-brand-text mb-3 leading-relaxed">"{text}"</blockquote><cite className="text-sm text-brand-purple-dark font-medium">— {author}</cite></div></div>);
 const ModelCard = ({ image, title }: { image: string; title: string }) => (<div className="group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5"><img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /><div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" /><div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"><h3 className="text-lg font-semibold mb-2">{title}</h3><div className="flex space-x-3"><button className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium hover:bg-white/30 transition-colors">Get The Look</button><button className="p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"><Heart size={16} /></button></div></div></div>);
-const ProductMasonryCard = ({ product }: { product: any }) => (<div className="group relative overflow-hidden rounded-2xl bg-white dark:bg-dark-card cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5"><div className="relative overflow-hidden"><img src={product.image} alt={product.name} className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"/><div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" /><div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"><button className="p-2 bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white dark:hover:bg-dark-card transition-colors"><Heart size={16} className="text-gray-700 dark:text-dark-text" /></button><Link to={`/product/${product.id}`} className="p-2 bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white dark:hover:bg-dark-card transition-colors"><Eye size={16} className="text-gray-700 dark:text-dark-text" /></Link></div><div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"><Link to={`/product/${product.id}`} className="w-full bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm text-black dark:text-dark-text py-2 px-4 rounded-full text-sm font-medium text-center block hover:bg-white dark:hover:bg-dark-card transition-colors">Try It On</Link></div></div><div className="p-4"><p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">{product.category}</p><h3 className="text-sm font-medium text-brand-text dark:text-dark-text mb-1 line-clamp-2">{product.name}</h3><p className="text-lg font-semibold text-brand-purple-dark dark:text-dark-primary">${product.price}</p></div></div>);
+const ProductMasonryCard = ({ product }: { product: any }) => (<div className="group relative overflow-hidden rounded-2xl bg-white cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5"><div className="relative overflow-hidden"><img src={product.image} alt={product.name} className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"/><div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" /><div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"><button className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors"><Heart size={16} className="text-gray-700" /></button><Link to={`/product/${product.id}`} className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors"><Eye size={16} className="text-gray-700" /></Link></div><div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"><Link to={`/product/${product.id}`} className="w-full bg-white/90 backdrop-blur-sm text-black py-2 px-4 rounded-full text-sm font-medium text-center block hover:bg-white transition-colors">Try It On</Link></div></div><div className="p-4"><p className="text-xs uppercase tracking-wide text-gray-500 mb-1">{product.category}</p><h3 className="text-sm font-medium text-brand-text mb-1 line-clamp-2">{product.name}</h3><p className="text-lg font-semibold text-brand-purple-dark">${product.price}</p></div></div>);
 
 // ===== HERO SECTION (TIDAK ADA PERUBAHAN) =====
 const HeroSection = () => {
@@ -162,13 +162,13 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto">
             <Link 
               to="/catalog" 
-              className="hero-btn flex-1 min-w-[180px] flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-purple-dark dark:bg-dark-primary dark:text-dark-background rounded-full overflow-hidden transition-all duration-300 hover:bg-brand-text dark:hover:bg-dark-secondary shadow-lg transform hover:scale-105 text-center"
+              className="hero-btn flex-1 min-w-[180px] flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-purple-dark rounded-full overflow-hidden transition-all duration-300 hover:bg-brand-text shadow-lg transform hover:scale-105 text-center"
             >
               <span className="group-hover:tracking-wider transition-all duration-300">Shop Collection</span>
             </Link>
             <Link 
               to="/consultant" 
-              className="hero-btn flex-1 min-w-[180px] flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-transparent border-2 border-white/60 rounded-full transition-all duration-300 hover:bg-white hover:text-brand-purple-dark dark:hover:bg-dark-primary dark:hover:text-dark-background dark:hover:border-dark-primary focus:outline-none focus:ring-2 focus:ring-white/60 dark:focus:ring-dark-primary/60 transform hover:scale-105 text-center"
+              className="hero-btn flex-1 min-w-[180px] flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-transparent border-2 border-white/60 rounded-full transition-all duration-300 hover:bg-white hover:text-brand-purple-dark hover:border-white focus:outline-none focus:ring-2 focus:ring-white/60 transform hover:scale-105 text-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2v-2m10-12H7a2 2 0 00-2 2v8a2 2 0 002 2h2l4 4V4a2 2 0 00-2-2z" /></svg>
               <span>Chat with AI Consultant</span>
@@ -234,12 +234,12 @@ const Home = () => {
         { type: 'product', id: 'product-2', product: mockProducts[1] },
       ];
     return (
-  <div className="min-h-screen bg-brand-bg-light dark:bg-dark-background">
+      <div className="min-h-screen">
         <HeroSection />
   
         <SectionWrapper className="py-20" animation="scaleIn">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div variants={variants.fadeInUp} className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text dark:text-dark-text mb-4">Style Inspiration</h2><p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Discover your next favorite piece through our curated collection of fashion moments</p></motion.div>
+            <motion.div variants={variants.fadeInUp} className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text mb-4">Style Inspiration</h2><p className="text-xl text-gray-600 max-w-2xl mx-auto">Discover your next favorite piece through our curated collection of fashion moments</p></motion.div>
             <motion.div className="masonry-container" variants={{ visible: { transition: { staggerChildren: 0.05 } } }}>
               {masonryContent.map((item) => (
                 <motion.div key={item.id} className="masonry-item mb-6" variants={variants.scaleIn} >
@@ -254,8 +254,8 @@ const Home = () => {
         
         <SectionWrapper className="py-20 overflow-hidden" animation="fadeInUp">
           <div className="max-w-7xl mx-auto">
-        <motion.div variants={variants.fadeInUp} className="flex flex-col sm:flex-row justify-between sm:items-center mb-12 text-center sm:text-left px-4 sm:px-6 lg:px-8">
-          <div><h2 className="text-3xl font-serif font-bold text-brand-text dark:text-dark-text mb-2">Best Sellers</h2><p className="text-gray-600 dark:text-gray-300">Our most loved pieces this season</p></div>
+              <motion.div variants={variants.fadeInUp} className="flex flex-col sm:flex-row justify-between sm:items-center mb-12 text-center sm:text-left px-4 sm:px-6 lg:px-8">
+                  <div><h2 className="text-3xl font-serif font-bold text-brand-text mb-2">Best Sellers</h2><p className="text-gray-600">Our most loved pieces this season</p></div>
                   <Link to="/catalog" className="btn-secondary hidden md:inline-flex items-center mt-4 sm:mt-0">View All <ArrowRight size={18} className="ml-2" /></Link>
               </motion.div>
             <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 sm:px-6 lg:px-8">
@@ -270,9 +270,9 @@ const Home = () => {
           </div>
         </SectionWrapper>
         
-        <SectionWrapper className="py-20">
+        <SectionWrapper className="py-20 bg-white">
           <motion.div variants={variants.fadeInUp} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text dark:text-dark-text mb-4">Why Choose ARVE?</h2><p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Experience fashion like never before with our personalized approach to style</p></div>
+            <div className="text-center mb-16"><h2 className="text-4xl font-serif font-bold text-brand-text mb-4">Why Choose ARVE?</h2><p className="text-xl text-gray-600 max-w-2xl mx-auto">Experience fashion like never before with our personalized approach to style</p></div>
             <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-12" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
               {[ { icon: Sparkles, title: "ARVE Style Consultant", text: "Get personalized outfit recommendations and styling advice." }, { icon: Users, title: "Curated Collections", text: "Carefully selected pieces from top designers and emerging brands." }, { icon: Award, title: "Premium Quality", text: "Every piece meets the highest standards of quality and craftsmanship." }].map((feature) => {
                 const Icon = feature.icon;
