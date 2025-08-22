@@ -1,32 +1,15 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Heart, Eye } from 'lucide-react';
 import { Product } from '../context/CartContext';
 
 interface ProductCardProps {
   product: Product;
-  clickable?: boolean; // when true, the whole card is clickable (used on Shop page)
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, clickable = false }) => {
-  const navigate = useNavigate();
-
-  const handleCardClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    if (!clickable) return;
-    const target = e.target as Element;
-    // Avoid intercepting clicks on interactive elements
-    if (target.closest('a, button, input, textarea, svg')) return;
-    navigate(`/product/${product.id}`);
-  };
-
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-  <div
-      className={`group relative bg-white dark:bg-dark-card rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${clickable ? 'cursor-pointer' : ''}`}
-      onClick={handleCardClick}
-      role={clickable ? 'button' : undefined}
-      aria-label={clickable ? `${product.name}` : undefined}
-      tabIndex={clickable ? 0 : undefined}
-    >
+  <div className="group relative bg-white dark:bg-dark-card rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden relative">
         <img
           className="h-80 w-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
@@ -39,9 +22,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, clickable = false })
         
         {/* Action buttons */}
         <div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Link to="/profile" className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200" aria-label="Wishlist">
+          <button className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200">
             <Heart size={16} className="text-gray-600 dark:text-dark-text" />
-          </Link>
+          </button>
           <Link
             to={`/product/${product.id}`}
             className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200"
@@ -66,13 +49,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, clickable = false })
           {product.category}
         </p>
         <h3 className="text-lg font-medium text-gray-900 dark:text-dark-text mb-2">
-          {clickable ? (
-            <span className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">{product.name}</span>
-          ) : (
-            <Link to={`/product/${product.id}`} className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
-              {product.name}
-            </Link>
-          )}
+          <Link to={`/product/${product.id}`} className="hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
+            {product.name}
+          </Link>
         </h3>
         <p className="text-xl font-semibold text-gray-900 dark:text-dark-text">
           ${product.price}

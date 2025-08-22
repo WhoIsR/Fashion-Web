@@ -39,9 +39,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, clickable = false })
         
         {/* Action buttons */}
         <div className="absolute top-4 right-4 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Link to="/profile" className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200" aria-label="Wishlist">
+          <button className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200">
             <Heart size={16} className="text-gray-600 dark:text-dark-text" />
-          </Link>
+          </button>
           <Link
             to={`/product/${product.id}`}
             className="p-2 bg-white dark:bg-dark-card rounded-full shadow-lg hover:bg-gray-50 dark:hover:bg-dark-border transition-colors duration-200"

@@ -219,7 +219,7 @@ const MobileProductCarousel = () => {
 }
 
 const Home = () => {
-  const masonryContent: MasonryItem[] = [
+    const masonryContent = [
         { type: 'quote', id: 'quote-1', text: "Style isn't just what you wear — it's who you are.", author: "Fashion Philosophy" },
         { type: 'product', id: 'product-1', product: mockProducts[0] },
         { type: 'model', id: 'model-1', image: 'https://images.pexels.com/photos/1721558/pexels-photo-1721558.jpeg?auto=compress&cs=tinysrgb&w=800', title: 'Street Style Inspiration'},

@@ -99,7 +99,7 @@ const Navbar = () => {
               )}
             </Link>
             
-            <Link to="/profile" className="p-2 group" aria-label="Profile">
+            <button className="p-2 group">
               <User 
                 size={20} 
                 className={`
@@ -108,7 +108,7 @@ const Navbar = () => {
                   group-hover:scale-110
                 `}
               />
-            </Link>
+            </button>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center">
